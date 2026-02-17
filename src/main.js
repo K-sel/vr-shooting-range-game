@@ -1,6 +1,5 @@
-// import { createApp } from 'vue';
-// import App from './Aframe.vue';
+import { createApp } from 'vue';
+import App from './Aframe.vue';
 
-// createApp(App).mount('#app');
+createApp(App).mount('#app');
 
-console.log("test");

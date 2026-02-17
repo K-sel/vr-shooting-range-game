@@ -1,5 +1,5 @@
 <script setup>
-import "../aframe/duplicate.js";
+// import "../aframe/duplicate.js";
 import "../aframe/simple-grab.js";
 import "../aframe/clickable.js";
 </script>
@@ -28,7 +28,7 @@ import "../aframe/clickable.js";
       amplitudeVariance="0.2"
     ></a-ocean>
 
-    <a-box duplicate color="tomato" depth="1" height="1" width="1"></a-box>
+    <!-- <a-box duplicate color="tomato" depth="1" height="1" width="1"></a-box> -->
 
     <a-entity light="type : ambient; color:#fff; intensity : 1"></a-entity>
     <a-entity light="type: point; intensity: 10;" position="0 2 -10"></a-entity>

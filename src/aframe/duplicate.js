@@ -22,7 +22,6 @@ AFRAME.registerComponent("duplicate", {
         clone.setAttribute("position", {
           x: (this.data.offset + this.data.tileSize) * j,
           z: (this.data.offset + this.data.tileSize) * i,
-          y: Math.random() * 0.1,      
         });
 
         entity.appendChild(clone);
@@ -34,6 +33,5 @@ AFRAME.registerComponent("duplicate", {
       z: -((this.data.rows * (this.data.tileSize + this.data.offset)) / 2),
     });
     target.appendChild(entity);
-    console.log(entity);
   },
 });
