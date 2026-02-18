@@ -11,7 +11,7 @@ AFRAME.registerComponent("duplicate", {
     const target = this.el;
 
     const originalClone = target.cloneNode(true);
-    originalClone.removeAttribute("floor");
+    originalClone.removeAttribute("duplicate");
     target.setAttribute("opacity", 1);
     target.setAttribute("color", "#000000");
 
@@ -22,8 +22,8 @@ AFRAME.registerComponent("duplicate", {
         clone.setAttribute("position", {
           x: (this.data.offset + this.data.tileSize) * j,
           z: (this.data.offset + this.data.tileSize) * i,
+          y: Math.random() * 0.05, // Add a slight random height variation for visual interest
         });
-
         entity.appendChild(clone);
       }
     }
