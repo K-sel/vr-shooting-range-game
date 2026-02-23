@@ -16,7 +16,7 @@ const visibleGun = ref(false);
 </script>
 
 <template>
-  <a-scene stats outline>
+  <a-scene obb-collider="showColliders: true" stats outline>
     <a-assets @loaded="allAssetsLoaded = true"> </a-assets>
     <template v-if="allAssetsLoaded"></template>
 
@@ -31,11 +31,18 @@ const visibleGun = ref(false);
       scale="1.5 1.5 1.5"
       :gltf-model="rangeUrl"
       rotation="0 90 0"
+      class="collidable"
+    ></a-entity>
+
+    <a-entity
+      class="collidable"
+      geometry="primitive: box"
+      position="0 1 -3"
     ></a-entity>
 
     <a-entity
       id="table"
-      scale="1.5 1.5 1.5"
+      scale="1.5 2 1.5"
       :gltf-model="tableUrl"
       position="-0.25461 0.71483 -1.1811"
       rotation="0 90 0"
@@ -43,10 +50,12 @@ const visibleGun = ref(false);
 
     <a-entity
       clickable
+      obb-collider
       @click="visibleGun = !visibleGun"
+      @obbcollisionstarted="visibleGun = !visibleGun"
       :visible="!visibleGun"
       id="pistol"
-      position="-0.15 1.15 2.00174"
+      position="-0.15 1.28451 2.00174"
       :gltf-model="gunUrl"
       rotation="90 -180 -9"
     ></a-entity>

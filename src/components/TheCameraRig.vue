@@ -2,10 +2,10 @@
 import "../aframe/disable-in-vr.js";
 import "../aframe/hide-in-vr.js";
 import "../aframe/simple-navmesh-constraint.js";
-import "../aframe/blink-controls.js";
-import "../aframe/physx-grab.js";
+import "../aframe/gun-shoot.js";
+import { watch } from "vue";
 
-defineProps({
+const props = defineProps({
   allAssetsLoaded: {
     default: false,
   },
@@ -16,6 +16,18 @@ defineProps({
     default: false,
   },
 });
+
+watch(
+  () => props.visibleGun,
+  () => {
+    const raycaster = document.querySelector("#raycaster");
+    if (props.visibleGun) {
+      raycaster.setAttribute("gun-shoot");
+    } else {
+      raycaster.removeAttribute("gun-shoot");
+    }
+  },
+);
 </script>
 
 <template>
@@ -41,41 +53,35 @@ defineProps({
         disable-in-vr="component: raycaster; disableInAR: false;"
         hide-in-vr="hideInAR: false"
       ></a-entity>
+
       <a-entity id="dummy-hand-right" position="0.3 -0.3 -0.5">
         <a-entity
-          v-if="allAssetsLoaded"
-          :gltf-model="gunUrl"
-          rotation="0 -90 -30"
-          :visible="visibleGun"
-        ></a-entity>
+          id="raycaster"
+          raycaster="objects: .collidable; far: 10;"
+          position="0 0 0"
+        >
+          <a-entity
+            v-if="allAssetsLoaded"
+            :gltf-model="gunUrl"
+            :visible="visibleGun"
+            rotation="0 -90 -30"
+          >
+          </a-entity>
+        </a-entity>
       </a-entity>
       <a-entity id="dummy-hand-left" position="-0.3 -0.4 -0.5"></a-entity>
     </a-entity>
 
-    <a-entity
-      id="hand-left"
-      hand-controls="hand: left"
-      blink-controls="
-          cameraRig: #camera-rig;
-          teleportOrigin: #head;
-          collisionEntities: [data-role='nav-mesh'];
-          snapTurn: false;
-        "
-      position="0 1.5 0"
-    >
-      <a-sphere
-        id="hand-left-collider"
-        radius="0.02"
-        visible="false"
-        physx-body="type: kinematic; emitCollisionEvents: true"
-      >
-      </a-sphere>
-    </a-entity>
 
-    <a-entity
-      v-if="allAssetsLoaded"
-      :gltf-model="gunUrl"
-      :visible="visibleGun"
-    ></a-entity>
+    <!-- VR -->
+    <a-entity id="hand-left" hand-controls="hand: left"> </a-entity>
+
+    <a-entity id="hand-right" obb-collider hand-controls="hand: right">
+      <a-entity
+        v-if="allAssetsLoaded"
+        :gltf-model="gunUrl"
+        :visible="visibleGun"
+      ></a-entity>
+    </a-entity>
   </a-entity>
 </template>
