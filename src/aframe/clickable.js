@@ -8,7 +8,7 @@ AFRAME.registerComponent('clickable', {
     this.onEnter = this.onEnter.bind(this);
     this.onLeave = this.onLeave.bind(this);
     this.el.addEventListener('mouseenter', this.onEnter);
-    this.el.addEventListener('mouseleave', this.onLeave);
+    this.el.addEventListener('mouseleave', this.onLeave); 
   },
 
   onEnter: function (evt) {
