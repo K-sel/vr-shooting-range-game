@@ -1,8 +1,8 @@
 AFRAME.registerComponent("duplicate", {
   schema: {
     tileSize: { type: "number", default: 1 },
-    cols: { type: "number", default: 10 },
-    rows: { type: "number", default: 10 },
+    cols: { type: "number", default: 20 },
+    rows: { type: "number", default: 20 },
     offset: { type: "number", default: 0.01 },
   },
 
