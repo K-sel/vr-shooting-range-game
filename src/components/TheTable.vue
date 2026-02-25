@@ -9,7 +9,7 @@ const props = defineProps({
     id="table"
     scale="1.5 2 1.5"
     :gltf-model="tableUrl"
-    position="0.16838 0.75089 11.67587"
+    position="0.16838 0.7006 11.67587"
     rotation="0 90 0"
   ></a-entity>
 </template>

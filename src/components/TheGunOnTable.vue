@@ -2,19 +2,29 @@
 const props = defineProps({
   gunUrl: { required: true },
 });
+
+function play() {
+  const el = document.querySelector('#snd-guntake');
+  if (!el) return;
+  el.currentTime = 0;
+  el.play();
+}
 </script>
 
 <template>
   <a-entity
-    clickable
     obb-collider
     visible="true"
+    @obbcollisionstarted="play"
     listen-to="target: #pistol; event:obbcollisionstarted; emit: click"
     event-set="event: click ; attribute : visible ; value : false"
     id="pistol"
-    position="0.20315 1.28451 15.06525"
     :gltf-model="gunUrl"
-    rotation="90 -180 -9"
+    rotation="0 180 90"
+    position="0.20315 1.26278 14.99267"
+    scale="0.02 0.02 0.02"
     outline-on-event
   ></a-entity>
+
+  <!-- <a-entity id="pistol-hand" gltf-model="/assets/reddotgun.glb" listen-to="target: #pistol; emit: show" event-set="event: show; attribute: visible; value: true" rotation="38.06960773967242 -179.9998479605043 90" position="0 -0.39549 -1.44591" scale="0.015 0.015 0.015"></a-entity> -->
 </template>

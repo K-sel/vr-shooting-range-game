@@ -1,10 +1,7 @@
 AFRAME.registerComponent("gun-shoot", {
-  dependencies: ["raycaster"],
 
   init: function () {
     this.onShoot = this.onShoot.bind(this);
-
-    this.playSound("#snd-guntake");
 
     // Desktop : clic gauche
     this.el.sceneEl.canvas.addEventListener("mousedown", this.onShoot);
@@ -24,6 +21,7 @@ AFRAME.registerComponent("gun-shoot", {
   },
 
   onShoot: function () {
+    if (!this.el.sceneEl.gameActive) return;
     this.playSound("#snd-gunshot");
 
     const hits = this.el.components.raycaster.intersectedEls;

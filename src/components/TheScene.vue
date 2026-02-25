@@ -13,12 +13,13 @@ import "../aframe/listen-to.js";
 import "../aframe/event-set.js";
 import "../aframe/shootable.js";
 import "../aframe/collider-check.js";
+import "../aframe/game-manager.js";
 import TheNavMesh from "./TheNavMesh.vue";
 
 const baseUrl = import.meta.env.BASE_URL;
 const sceneUrl = `${baseUrl}assets/scene.glb`;
 const rangeUrl = `${baseUrl}assets/range.glb`;
-const gunUrl = `${baseUrl}assets/sci-fi_gun.glb`;
+const gunUrl = `${baseUrl}assets/reddotgun.glb`;
 const tableUrl = `${baseUrl}assets/table.glb`;
 const gunshotUrl = `${baseUrl}assets/gunshot.mp3`;
 const takeUrl = `${baseUrl}assets/guntake.mp3`;
@@ -37,7 +38,8 @@ const allAssetsLoaded = ref(false);
     <template v-if="allAssetsLoaded"></template>
 
     <a-entity pubsub></a-entity>
-
+    <a-entity game-manager></a-entity>
+    
     <a-sky color="#7EC8E8"></a-sky>
 
     <a-entity id="scene" position="0 0 0" :gltf-model="sceneUrl"></a-entity>
@@ -51,7 +53,7 @@ const allAssetsLoaded = ref(false);
     <TheCameraRig
       :allAssetsLoaded="allAssetsLoaded"
       :gunUrl="gunUrl"
-      position="0.13737 0 16.21724"
+      position="0.23221 0.69323 16.34931"
     />
   </a-scene>
 </template>
