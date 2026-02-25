@@ -30,10 +30,13 @@ const props = defineProps({
 
     <a-entity id="hand-right" hand-controls="hand: right" obb-collider>
       <a-entity
-        listen-to="target:#pistol-hand ; event:show; emit:activate"
-        event-set="event: activate ; attribute : raycaster.far; value : 1000"
-        raycaster="far: 0.0001; objects: [clickable], .collidable; showLine: true;"
-        rotation=" -90 0 0"
+        listen-to="target: #pistol-hand; event: show; emit: activate"
+        event-set="event: activate; attribute: raycaster.far; value: 1000"
+        raycaster="objects: [clickable], .collidable; showLine: true"
+        gun-shoot
+        rotation="-72.45165910988287 0 0"
+        line="end: 0 0 -1000; color: white"
+        position="-0.02016 -0.10344 -0.13295"
       ></a-entity>
       <a-entity
         id="pistol-hand"
