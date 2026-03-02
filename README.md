@@ -1,85 +1,74 @@
-<p align="center">
-    <img src="./logo.svg" alt="VAV Logo" align="center"/>
-</p>
-<h1 align="center">Vue + A-Frame + Vite boilerplate</h1>
+# 🎯 VR Shooting Range
 
-> A boilerplate for A-Frame, Vue and Vite
-
-![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D)
-![A-Frame](https://img.shields.io/badge/A%E2%80%93Frame-brightgreen?style=for-the-badge&labelColor=%23ef2d5e&color=%23ef2d5e)
-![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
-![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
-
-### [>> DEMO <<](https://onivers.com/aframe-vue-boilerplate/)
-
-## Included in the boilerplate
-
-### Libs and components
-
-- [aframe-extras](https://github.com/c-frame/aframe-extras) (MIT License)
-- [aframe physx](https://github.com/c-frame/physx) (MIT License)
-- [aframe-blink-controls](https://github.com/jure/aframe-blink-controls) (MIT License)
-- [aframe-multi-camera](https://github.com/diarmidmackenzie/aframe-multi-camera/) (MIT License)
-- [simple-navmesh-constraint](https://github.com/AdaRoseCannon/aframe-xr-boilerplate) (MIT Licence)
-
-### Movement modes support
-
-- **Desktop** – Keyboard for move (_WASD_ or Arrows keys) + Mouse for look control (Drag and drop)
-- **Mobile** – 1x Finger touch to go forward + 2x Fingers touch to go backward + Gaze cursor for click
-- **VR/AR** – walk + Teleport (Grip for grab and laser for click) + Gaze cursor for click in AR
-
-### 3D models
-
-- **Main room** – [VR Gallery](https://sketchfab.com/3d-models/vr-gallery-1ac32ed62fdf424498acc146fad31f7e) by [Maxim Mavrichev](https://sketchfab.com/mvrc.art) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-- **3D physic room** – [3d_gallery_for_vr_projects](https://sketchfab.com/3d-models/3d-gallery-for-vr-projects-68f77ed8558c4bd59e0a13e2cc9d1fd1) by [tekuto1s](https://sketchfab.com/tekuto1s) is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+> Un stand de tir immersif en VR, jouable dans votre navigateur — casque, manettes, et c'est parti.
 
 ---
 
-## Quickstart
+## 🕹️ Le projet
 
-### Create a folder for your project and move to it
+Un shooting range interactif construit avec **A-Frame**, **Vue 3** et **Vite**. Ramassez le pistolet sur la table, appuyez sur le chrono et tirez sur les cibles avant que le temps ne s'écoule. Scores, timer, leaderboard — tout est là.
 
-### Clone (or fork, or download)
+Conçu pour la **VR** (WebXR) avec manettes de jeu.
 
-```sh
-git clone https://github.com/Chabloz/a-frame-vite-vue-boilerplate.git .
+---
+
+## 🏗️ Architecture
+
+### Scène & assets
+La scène principale (`TheScene.vue`) orchestre le tout : chargement des assets GLB (décor, stand, pistolet, table), instanciation des composants Vue et initialisation d'A-Frame.
+
+### Camera Rig
+`TheCameraRig.vue` déclare les mains VR (`hand-controls`) gauche et droite. La main droite embarque un raycaster laser activé uniquement une fois le pistolet récupéré.
+
+### Système de tir
+Le composant `gun-shoot` écoute les clics souris (desktop) et le trigger manette (VR). Il interroge les intersections du **raycaster** A-Frame pour détecter la zone touchée, lit les **points** via la prop `collider-check` du composant A-Frame personnalisé, et met à jour le score en temps réel.
+
+### Cibles (`TheTarget.vue`)
+Les zones de la cible sont générées dynamiquement à partir d'un tableau de définitions :
+
+```js
+{ points: 10, color: "#000000", type: "circle", radius: 0.03 }  // bulls-eye
+{ points: 7,  color: "#FFD700", type: "ring", ... }
+// ...
 ```
 
-### Install dependencies
+Chaque zone reçoit `collider-check="points: X"` — le composant stocke la valeur de points, récupérable par `gun-shoot` au moment de l'impact.
 
-```sh
+### Game Manager
+`game-manager` (composant A-Frame) pilote la boucle de jeu : démarrage au ramassage du pistolet, compte à rebours de 60s, affichage du score en direct, écran Game Over et sauvegarde du top 3 en localStorage.
+
+---
+
+## 🗂️ Structure rapide
+
+```
+src/
+├── components/       # Composants Vue (scène, cibles, UI, décor)
+├── aframe/           # Composants A-Frame custom (gun-shoot, collider-check, game-manager…)
+├── utils/            # Helpers (keyboard, aframe position/rotation)
+└── three-addon/      # Post-processing Three.js (bloom, outline)
+```
+
+---
+
+## 🚀 Démarrage
+
+```bash
 npm ci
-```
-
-### Dev
-
-```sh
 npm run dev
 ```
 
-### Build
+Pour tester sur casque VR (même réseau) :
 
-```sh
-npm run build
-```
-
-## Notes for local dev on VR headset
-
-1. Check that your development device and your VR headset are connected on **the same network**.
-
-2. Expose you local development:
-
-```sh
+```bash
 npm run dev-expose
 ```
 
-3. In your VR headset, browse to the local development adress `[ip]:[port]`.
-
-> [!NOTE]
-> The certificate is self-signed, so you will probably have to confirm access to the resource in your browser.
-
 ---
 
-## License
+## 🛠️ Stack
 
-![MIT License](https://img.shields.io/badge/License-MIT-brightgreen?style=for-the-badge&color=%23262626)
+- [A-Frame](https://aframe.io/) — scène WebXR
+- [Vue 3](https://vuejs.org/) — composants et réactivité
+- [Vite](https://vitejs.dev/) — build & dev server
+- [aframe-extras](https://github.com/c-frame/aframe-extras) — movement controls
