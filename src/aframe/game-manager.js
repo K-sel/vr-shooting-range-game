@@ -82,13 +82,12 @@ AFRAME.registerComponent("game-manager", {
     const top3 = stored.slice(0, 3);
     localStorage.setItem("vr-leaderboard", JSON.stringify(top3));
 
-    const lbEl = document.querySelector("#leaderboard");
+    const lbEl = document.querySelector("#leaderboard-text");
     if (!lbEl) return;
 
-    const medals = ["🥇", "🥈", "🥉"];
+    const medals = ["1.", "2.", "3."];
     const lines = top3.map((s, i) => `${medals[i]} ${s} pts`).join("\n");
     lbEl.setAttribute("value", lines);
-    lbEl.setAttribute("visible", true);
   },
 
   remove() {

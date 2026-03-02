@@ -1,31 +1,117 @@
 <template>
-  <!-- Score actuel -->
-  <a-text
-    id="score"
-    position="-0.38291 3.31089 -2.41046"
-    color="black"
-    width="10"
-    value="0"
-  ></a-text>
+  <!-- Écran CRT vintage — contient #score et #timer -->
+  <a-entity id="crt-display" position="-0.20 4.1 -2.8">
+    <!-- Boîtier externe (gris foncé, épais) -->
+    <a-box
+      width="1.10" height="0.72" depth="0.50"
+      color="#2A2A2A"
+      material="roughness: 0.85; metalness: 0.05"
+    ></a-box>
 
-  <!-- Points gagnés sur le tir -->
-  <a-text
-    id="newPoints"
+    <!-- Cadre d'écran (encore plus sombre) -->
+    <a-box
+      width="0.88" height="0.58" depth="0.02"
+      color="#1A1A1A"
+      material="roughness: 0.9"
+      position="0 0 0.26"
+    ></a-box>
+
+    <!-- Surface écran (vert foncé émissif = phosphore) -->
+    <a-box
+      width="0.76" height="0.46" depth="0.015"
+      color="#0A1A0A"
+      material="emissive: #002200; emissiveIntensity: 0.6; roughness: 0.3"
+      position="0 0.02 0.273"
+    ></a-box>
+
+    <!-- Label "SCORE" -->
+    <a-text
+      value="SCORE"
+      align="center"
+      color="#00CC33"
+      width="2.8"
+      position="0 0.175 0.285"
+      material="shader: flat"
+    ></a-text>
+
+    <!-- Valeur du score — conserve id="score" -->
+    <a-text
+      id="score"
+      value="0"
+      align="center"
+      color="#00FF41"
+      width="4.0"
+      position="0 0.07 0.285"
+      material="shader: flat"
+    ></a-text>
+
+    <!-- Séparateur horizontal -->
+    <a-box
+      width="0.60" height="0.003" depth="0.005"
+      color="#005511"
+      position="0 -0.02 0.278"
+    ></a-box>
+
+    <!-- Label "TIME" -->
+    <a-text
+      value="TIME"
+      align="center"
+      color="#00CC33"
+      width="2.0"
+      position="0 -0.07 0.285"
+      material="shader: flat"
+    ></a-text>
+
+    <!-- Timer — conserve id="timer" -->
+    <a-text
+      id="timer"
+      value=""
+      align="center"
+      color="#E02020"
+      width="3.5"
+      position="0 -0.16 0.285"
+      material="shader: flat"
+    ></a-text>
+
+    <!-- LED verte (indicateur marche) — sur le boîtier, pas l'écran -->
+    <a-circle
+      radius="0.018"
+      color="#00FF41"
+      material="emissive: #00FF41; emissiveIntensity: 1.0; shader: flat"
+      position="0.38 -0.32 0.255"
+    ></a-circle>
+
+    <!-- Marque fabricant — sur le boîtier, pas l'écran -->
+    <a-text
+      value="MARKSMAN PRO"
+      align="center"
+      color="#444444"
+      width="1.6"
+      position="0 -0.33 0.252"
+      material="shader: flat"
+    ></a-text>
+  </a-entity>
+
+  <!-- Cube popup de score — remplace #newPoints -->
+  <a-entity
+    id="score-popup"
+    score-popup
     position="1.39862 1.04124 -2.30834"
-    color="black"
-    width="10"
-    value="0"
-  ></a-text>
-
-  <!-- Compte à rebours -->
-  <a-text
-    id="timer"
-    position="-0.38291 3.7 -2.41046"
-    color="#E02020"
-    width="10"
-    value=""
-    align="center"
-  ></a-text>
+    visible="false"
+    geometry="primitive: box; width: 0.35; height: 0.35; depth: 0.35"
+    material="color: white; opacity: 0.9; transparent: true"
+  >
+    <!-- Texte face avant (vers le joueur) -->
+    <a-text
+      data-popup-text
+      value="+0"
+      align="center"
+      color="white"
+      width="2.5"
+      position="0 0 0.18"
+      material="shader: flat"
+    ></a-text>
+  </a-entity>
 
   <!-- GAME OVER -->
   <a-text
@@ -36,17 +122,5 @@
     value="GAME OVER"
     align="center"
     visible="false"
-  ></a-text>
-
-  <a-text
-    id="leaderboard"
-    position="-1.92215 1.49578 13.68831"
-    color="black"
-    width="8"
-    line-height="60"
-    value="🥇 0 pts
-🥈 0 pts
-🥉 0 pts"
-    rotation="0 40.398681176879215 0"
   ></a-text>
 </template>

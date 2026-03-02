@@ -37,21 +37,15 @@ AFRAME.registerComponent("gun-shoot", {
     this.playSound(points === 10 ? "#snd-hitcenter" : "#snd-hit");
 
     const scoreEl = document.querySelector("#score");
-    const newPointsEl = document.querySelector("#newPoints");
     if (!scoreEl) return;
 
     const current = parseFloat(scoreEl.getAttribute("value")) || 0;
     const newScore = Math.trunc(current + points);
     scoreEl.setAttribute("value", newScore);
 
-    if (newPointsEl) {
-      newPointsEl.setAttribute("value", `+${points}`);
-      newPointsEl.setAttribute("color", zoneColor);
-
-      if (this._newPointsTimeout) clearTimeout(this._newPointsTimeout);
-      this._newPointsTimeout = setTimeout(() => {
-        newPointsEl.setAttribute("value", "");
-      }, 1500);
+    const popupEl = document.querySelector("#score-popup");
+    if (popupEl) {
+      popupEl.emit("show-popup", { points, color: zoneColor });
     }
   },
 
