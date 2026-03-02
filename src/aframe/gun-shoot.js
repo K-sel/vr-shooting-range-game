@@ -27,6 +27,9 @@ AFRAME.registerComponent("gun-shoot", {
     const hits = this.el.components.raycaster.intersectedEls;
     if (hits.length === 0) return;
 
+    const intersections = this.el.components.raycaster.intersections;
+    const point = intersections.length > 0 ? intersections[0].point : null;
+
     const target = hits[0];
     const colliderCheck = target.components["collider-check"];
     if (!colliderCheck) return;
@@ -46,6 +49,11 @@ AFRAME.registerComponent("gun-shoot", {
     const popupEl = document.querySelector("#score-popup");
     if (popupEl) {
       popupEl.emit("show-popup", { points, color: zoneColor });
+    }
+
+    const hitmarkEl = document.querySelector("#hitmark");
+    if (hitmarkEl && point && this.el.sceneEl.hitmarkEnabled !== false) {
+      hitmarkEl.components.hitmark.show(point);
     }
   },
 

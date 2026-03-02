@@ -32,7 +32,7 @@ const props = defineProps({
       <a-entity
         listen-to="target: #pistol-hand; event: show; emit: activate"
         event-set="event: activate; attribute: raycaster.far; value: 1000"
-        raycaster="far: 0; objects: [clickable], .collidable; showLine: true;"
+        raycaster="far: 0; objects: [clickable], .collidable; showLine: false;"
         gun-shoot
         position="0 -0.0526 -0.15472"
         rotation="-90 0 0"

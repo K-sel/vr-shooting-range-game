@@ -9,6 +9,7 @@ import TheGunOnTable from "./TheGunOnTable.vue";
 import TheTexts from "./TheTexts.vue";
 import TheNavMesh from "./TheNavMesh.vue";
 import TheLeaderboard from "./TheLeaderboard.vue";
+import TheDifficultyButtons from "./TheDifficultyButtons.vue";
 
 import "../aframe/clickable";
 import "../aframe/simple-grab";
@@ -18,6 +19,8 @@ import "../aframe/shootable.js";
 import "../aframe/collider-check.js";
 import "../aframe/game-manager.js";
 import "../aframe/score-popup.js";
+import "../aframe/hitmark.js";
+import "../aframe/difficulty-button.js";
 
 const baseUrl = import.meta.env.BASE_URL;
 const sceneUrl = `${baseUrl}assets/scene.glb`;
@@ -27,16 +30,20 @@ const tableUrl = `${baseUrl}assets/table.glb`;
 const gunshotUrl = `${baseUrl}assets/gunshot.mp3`;
 const takeUrl = `${baseUrl}assets/guntake.mp3`;
 const hitCenterUrl = `${baseUrl}assets/hitcenter.mp3`;
+const easyClickedUrl = `${baseUrl}assets/easy.mp3`;
+const hardClickedUrl = `${baseUrl}assets/hard.mp3`;
 
 const allAssetsLoaded = ref(false);
 </script>
 
 <template>
-  <a-scene obb-collider="showColliders: false" stats outline>
+  <a-scene obb-collider="showColliders: false">
     <a-assets @loaded="allAssetsLoaded = true">
       <audio id="snd-gunshot" :src="gunshotUrl" preload="auto"></audio>
       <audio id="snd-guntake" :src="takeUrl" preload="auto"></audio>
       <audio id="snd-hitcenter" :src="hitCenterUrl" preload="auto"></audio>
+      <audio id="snd-easy-clicked" :src="easyClickedUrl" preload="auto"></audio>
+      <audio id="snd-hard-clicked" :src="hardClickedUrl" preload="auto"></audio>
     </a-assets>
     <template v-if="allAssetsLoaded"></template>
 
@@ -53,6 +60,7 @@ const allAssetsLoaded = ref(false);
       <TheTable :tableUrl="tableUrl" />
       <TheGunOnTable :gunUrl="gunUrl" />
       <TheLeaderboard />
+      <TheDifficultyButtons />
       <TheCameraRig
         :allAssetsLoaded="allAssetsLoaded"
         :gunUrl="gunUrl"

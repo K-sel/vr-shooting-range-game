@@ -37,9 +37,10 @@
 
     <!-- En-tête "TOP SCORES" -->
     <a-text
-      value="Top 3"
+      id="leaderboard-title"
+      value="EASY"
       align="center"
-      color="#333333"
+      color="#22AA44"
       width="1.4"
       position="-0.0017 0.12616 0.007"
     ></a-text>

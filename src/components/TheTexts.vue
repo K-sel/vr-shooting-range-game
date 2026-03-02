@@ -54,6 +54,7 @@
 
     <!-- Label "TIME" -->
     <a-text
+      id="time-label"
       value="TIME"
       align="center"
       color="#00CC33"
@@ -98,17 +99,31 @@
     score-popup
     position="1.39862 1.04124 -2.30834"
     visible="false"
-    geometry="primitive: box; width: 0.35; height: 0.35; depth: 0.35"
+    geometry="primitive: box; width: 0.70; height: 0.70; depth: 0.70"
     material="color: white; opacity: 0.9; transparent: true"
   >
-    <!-- Texte face avant (vers le joueur) -->
+    <!-- Contour noir (légèrement plus grand, en retrait) -->
+    <a-text
+      data-popup-outline
+      value="+0"
+      align="center"
+      baseline="center"
+      color="black"
+      width="0.68"
+      wrap-count="3"
+      position="0 0 0.359"
+      material="shader: flat"
+    ></a-text>
+    <!-- Texte principal blanc (devant) -->
     <a-text
       data-popup-text
       value="+0"
       align="center"
+      baseline="center"
       color="white"
-      width="2.5"
-      position="0 0 0.18"
+      width="0.62"
+      wrap-count="3"
+      position="0 0 0.361"
       material="shader: flat"
     ></a-text>
   </a-entity>
@@ -123,4 +138,14 @@
     align="center"
     visible="false"
   ></a-text>
+
+  <!-- Hitmark crosshair — apparaît au point d'impact pendant 500ms -->
+  <a-entity id="hitmark" hitmark visible="false">
+    <!-- Outline noir -->
+    <a-box width="0.064" height="0.010" depth="0.001" color="black" material="shader: flat" position="0 0 -0.001"></a-box>
+    <a-box width="0.010" height="0.064" depth="0.001" color="black" material="shader: flat" position="0 0 -0.001"></a-box>
+    <!-- Croix blanche -->
+    <a-box width="0.060" height="0.006" depth="0.002" color="white" material="shader: flat"></a-box>
+    <a-box width="0.006" height="0.060" depth="0.002" color="white" material="shader: flat"></a-box>
+  </a-entity>
 </template>
