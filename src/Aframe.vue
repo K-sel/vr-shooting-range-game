@@ -8,7 +8,7 @@
 </script>
 
 <template>
-  <!-- <TheOnboarding :loaded="loaded" /> -->
+  <TheOnboarding :loaded="loaded" />
 
   <TheScene @loaded="loaded = true" />
 </template>
